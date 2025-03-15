@@ -1,5 +1,5 @@
-import DaysQuote from "./components/DaysQuote/DaysQuote";
-import Generator from "./components/Generator/Generator";
+import DaysQuote from "./components/layout/DaysQuote/DaysQuote";
+import Generator from "./components/layout/Generator/Generator";
 
 function App() {
 
