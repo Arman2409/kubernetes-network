@@ -11,13 +11,13 @@ import (
 	"server/models"
 )
 
-var dbClient *gorm.DB
+var DbClient *gorm.DB
 
 func InitDB() error {
 
 	var err error
 
-	dbClient, err = gorm.Open(
+	DbClient, err = gorm.Open(
 		postgres.Open(os.Getenv("DATABASE_URL")),
 		&gorm.Config{},
 	)
@@ -28,7 +28,7 @@ func InitDB() error {
 		return fmt.Errorf("failed to connect to database")
 	}
 
-	err = dbClient.AutoMigrate(&models.Quote{})
+	err = DbClient.AutoMigrate(&models.Quote{})
 	if err != nil {
 		log.Printf("Failed to migrate the database: %v", err)
 

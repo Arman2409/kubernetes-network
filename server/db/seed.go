@@ -13,10 +13,10 @@ var quotes = []models.Quote{
 
 func Seed() error {
 	var count int64
-	dbClient.Model(&models.Quote{}).Count(&count)
+	DbClient.Model(&models.Quote{}).Count(&count)
 
 	if count == 0 {
-		err := dbClient.Create(&quotes).Error
+		err := DbClient.Create(&quotes).Error
 
 		if err != nil {
 			log.Printf("Failed to seed the database, %v", err)

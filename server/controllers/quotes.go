@@ -12,7 +12,7 @@ func SetUpQuotesController(router *gin.Engine) {
 	quoteGroup := router.Group("/quotes")
 	{
 		quoteGroup.GET("/random", handler.GetRandom)
-		quoteGroup.GET("/for-today", handler.GetForToday)
+		quoteGroup.GET("/for-today", handler.GetQuoteOfDay)
 	}
 }
 
