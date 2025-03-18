@@ -28,6 +28,8 @@ func InitDB() error {
 		return fmt.Errorf("failed to connect to database")
 	}
 
+	log.Println("Database connected successfully!")
+
 	err = DbClient.AutoMigrate(&models.Quote{})
 	if err != nil {
 		log.Printf("Failed to migrate the database: %v", err)
@@ -35,6 +37,6 @@ func InitDB() error {
 		return fmt.Errorf("failed to migrate the database")
 	}
 
-	log.Println("Database connected successfully!")
+	log.Println("Database migrated successfully!")
 	return nil
 }

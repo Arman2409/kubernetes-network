@@ -23,7 +23,7 @@ func Seed() error {
 			return err
 		}
 
-		log.Println("Database seeded with quotes!")
+		log.Println("Database seeded succesfully!")
 	} else {
 		log.Println("Database already seeded. Skipping...")
 	}

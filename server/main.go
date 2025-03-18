@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,19 @@ func main() {
 		return
 	}
 
+	// Check for CMD commands
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "migrate":
+			db.InitDB()
+			return
+		case "seed":
+			db.InitDB()
+			db.Seed()
+			return
+		}
+	}
+
 	err = db.InitDB()
 
 	if err != nil {
@@ -34,7 +48,7 @@ func main() {
 	}
 
 	crons.StartDailyQuoteCron()
-	
+
 	router := gin.Default()
 
 	router.Use(cors.Default())
