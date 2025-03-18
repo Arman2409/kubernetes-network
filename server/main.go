@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 
 	quotes_controller "server/controllers"
+	"server/crons"
 	"server/db"
 )
 
@@ -32,6 +33,8 @@ func main() {
 		log.Fatalf("Failed to seed the database")
 	}
 
+	crons.StartDailyQuoteCron()
+	
 	router := gin.Default()
 
 	router.Use(cors.Default())
