@@ -1,0 +1,3 @@
+FROM react
+
+COPY . .

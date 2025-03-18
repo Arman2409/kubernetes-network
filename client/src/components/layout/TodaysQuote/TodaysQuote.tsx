@@ -5,8 +5,10 @@ import QuoteCard from "../../shared/QuoteCard/QuoteCard";
 
 const DaysQuote = () => {
   const [todaysQuote, setTdaysQuote] = useState<Quote>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getTodays = async () => {
+    setLoading(true);
     const result = await Request.getInstance().getTodays();
 
     if (result) {
@@ -14,7 +16,10 @@ const DaysQuote = () => {
         return;
       }
 
-      setTdaysQuote(result)
+      if(typeof result === "object") {
+        setTdaysQuote(result)
+        setLoading(false);
+      }
     }
   }
 
@@ -24,11 +29,13 @@ const DaysQuote = () => {
 
   return (
     <div className="w-[100%] flex justify-center">
-      <div className="w-[90%] p-4 flex justify-between items-center border-t border-b border-red-500">
+      <div className="w-[90%] text-green-500 p-4 flex justify-evenly items-center border-t border-purple-300">
         <h2>
           Today's Quote
         </h2>
-        {todaysQuote && <QuoteCard {...todaysQuote}/>}
+        <QuoteCard
+         loading={loading}
+         quote={todaysQuote}/>
       </div>
 
     </div>
