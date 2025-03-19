@@ -1,7 +1,7 @@
 package quotes_controller
 
 import (
-	quotes_handlers "server/handlers"
+	"server/handlers"
 
 	"github.com/gin-gonic/gin"
 )

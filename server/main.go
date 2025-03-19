@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
-	quotes_controller "server/controllers"
+	"server/controllers"
 	"server/crons"
 	"server/db"
 )
@@ -27,11 +27,13 @@ func main() {
 		switch os.Args[1] {
 		case "migrate":
 			db.InitDB()
-			return
+			os.Exit(0)
 		case "seed":
 			db.InitDB()
 			db.Seed()
-			return
+			os.Exit(0)
+		default:
+			log.Fatalf("Error: Unknown command '%s'", os.Args[1])
 		}
 	}
 
