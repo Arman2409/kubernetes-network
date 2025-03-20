@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: react-container
-          image: naresh240/reactapp:latest
+          image: client
           resources:
             requests:
               memory: "64Mi"  # Guaranteed memory allocation
@@ -26,8 +26,3 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 80
-              
-      volumes:
-        - name: nginx-config
-          configMap:
-            name: nginx-config
