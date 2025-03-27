@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  labels:
+    app: client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client-deployment
+        image: node:22
+        resources:
+          requests:
+            memory: "64Mi" # Guaranteed memory allocation
+            cpu: "250m" # Guaranteed CPU allocation (250 millicores = 0.25 CPU)
+          limits:
+            memory: "128Mi" # Maximum memory usage
+            cpu: "500m"
+        command: ["npm", "run", "start"]
+        ports:
+        - containerPort: 80

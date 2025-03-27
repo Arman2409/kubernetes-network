@@ -24,7 +24,7 @@ RUN pnpm run build
 FROM nginx:alpine
 
 # Copy the built React app into the Nginx HTML directory
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
