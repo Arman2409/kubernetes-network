@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: client-deployment
-        image: node:22
+        image: client
+        imagePullPolicy: Never # Use the local image
         resources:
           requests:
             memory: "64Mi" # Guaranteed memory allocation
@@ -24,6 +25,6 @@ spec:
           limits:
             memory: "128Mi" # Maximum memory usage
             cpu: "500m"
-        command: ["npm", "run", "start"]
+        # command: ["npm", "run", "start"]
         ports:
         - containerPort: 80

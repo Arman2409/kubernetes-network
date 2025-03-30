@@ -10,8 +10,10 @@ COPY package*.json ./
 # Copy the rest of the application code
 COPY . .
 
+# Install PNPM 
 RUN npm install -g pnpm
 
+# Remove node_modules
 RUN rm -rf node_modules 
 
 # Install dependencies

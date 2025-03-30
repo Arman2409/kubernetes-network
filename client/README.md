@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+# Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Client side of the project
 
-Currently, two official plugins are available:
+## Run locally with Kubernetes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Install and set up Kubernetes[https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/].
 
-## Expanding the ESLint configuration
+2. Set up your local cluster. In this documentation minikube is used.[https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download].
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. Install and set up Docker[https://docs.docker.com/engine/install/]
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+4. Build the Docker image (this image name is used in the deployment).
+```bash
+  docker build ./ -t client
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+5. Start your cluster
+```bash
+  minikube start
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+6. Apply the service file
+```bash
+ kubectl apply -f client-service.yaml 
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+7. Apply the deployment file
+```bash
+  kubectl apply -f client-deployment.yaml 
+```
+
+8. Find the exposed NodePort by this command
+```bash
+   kubectl describe service client
+```
+
+9. Get your pod cluster local IP
+```bash
+   minikube ip
+```
+
+10. Access the client in the browser using cluster's IP and the Node port
+<cluster ip>:<node port>
+
+
+## How to run locally
+
+1. Install and set up Node.js[https://nodejs.org/en/download]
+
+2. Install the dependencies
+```bash
+  npm install
+```
+
+3. Run the project
+```bash
+  npm run start
 ```
