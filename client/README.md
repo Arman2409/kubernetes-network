@@ -10,37 +10,42 @@
 
 3. Install and set up Docker[https://docs.docker.com/engine/install/]
 
-4. Build the Docker image (this image name is used in the deployment).
+4. Set your Docker environment to Minikube.
+```bash
+  eval $(minikube docker-env)
+```
+
+5. Build the Docker image (this image name is used in the deployment).
 ```bash
   docker build ./ -t client
 ```
 
-5. Start your cluster
+6. Start your cluster
 ```bash
   minikube start
 ```
 
-6. Apply the service file
+7. Apply the service file
 ```bash
  kubectl apply -f client-service.yaml 
 ```
 
-7. Apply the deployment file
+8. Apply the deployment file
 ```bash
   kubectl apply -f client-deployment.yaml 
 ```
 
-8. Find the exposed NodePort by this command
+9. Find the exposed NodePort by this command
 ```bash
    kubectl describe service client
 ```
 
-9. Get your pod cluster local IP
+10. Get your pod cluster local IP
 ```bash
    minikube ip
 ```
 
-10. Access the client in the browser using cluster's IP and the Node port
+11. Access the client in the browser using cluster's IP and the Node port
 <cluster ip>:<node port>
 
 

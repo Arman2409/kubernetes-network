@@ -25,6 +25,9 @@ RUN pnpm run build
 # Stage 2: Serve the app using Nginx
 FROM nginx:alpine
 
+# Environment 
+ENV VITE_API_URL=http://go-service:80/api
+
 # Copy the built React app into the Nginx HTML directory
 COPY --from=builder /app/dist /usr/share/nginx/html
 

@@ -18,9 +18,8 @@ func main() {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatalf("No .env file found, exitng...")
-		return
-	}
+        log.Println("Warning: No .env file found. Using system environment variables.")
+    }
 
 	// Check for CMD commands
 	if len(os.Args) > 1 {
