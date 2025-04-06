@@ -10,6 +10,9 @@ COPY package*.json ./
 # Copy the rest of the application code
 COPY . .
 
+# Environment 
+ENV VITE_API_URL=/api/quotes
+
 # Install PNPM 
 RUN npm install -g pnpm
 
@@ -25,11 +28,11 @@ RUN pnpm run build
 # Stage 2: Serve the app using Nginx
 FROM nginx:alpine
 
-# Environment 
-ENV VITE_API_URL=http://go-service:80/api
-
 # Copy the built React app into the Nginx HTML directory
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80

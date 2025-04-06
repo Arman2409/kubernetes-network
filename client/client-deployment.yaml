@@ -1,18 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client
-  labels:
-    app: client
+  name: client-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: client
+      app: client-deployment
   template:
     metadata:
       labels:
-        app: client
+        app: client-deployment
     spec:
       containers:
       - name: client-deployment

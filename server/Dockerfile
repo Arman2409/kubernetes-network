@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=builder /app/main .
 
 # Env
-ENV DATABASE_URL=postgresql://myuser:mypassword@postgres-service:5432/mydatabase
+ENV DATABASE_URL=postgresql://myuser:mypassword@database-service:5432/mydatabase
 
 # Expose the port your Gin server listens on (e.g., 8080)
 EXPOSE 8080
