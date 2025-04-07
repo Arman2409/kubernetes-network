@@ -31,7 +31,7 @@ func updateDailyQuote() {
 		return
 	}
 
-	rand.Seed(time.Now().UnixNano())
+	rand := rand.New(rand.NewSource(time.Now().UnixNano()))
 	offset := rand.Int63n(count)
 
 	if err := db.DbClient.Model(&models.Quote{}).Offset(int(offset)).First(&newQuote).Error; err != nil {
@@ -42,18 +42,18 @@ func updateDailyQuote() {
 	result = db.DbClient.Model(&models.Quote{}).Where("is_quote_of_day = true").Update("is_quote_of_day", false)
 
 	if result.Error != nil {
-		log.Printf("failed to update previous quote of the day: %v", result.Error)
+		log.Printf("Failed to update previous quote of the day: %v", result.Error);
+		return
 	}
 
 	// Set the new quote as the quote of the day.
 	result = db.DbClient.Model(&models.Quote{}).Where("id = ?", newQuote.ID).Update("is_quote_of_day", true)
 	if result.Error != nil {
-		log.Printf("failed to set new quote of the day: %v", result.Error)
+		log.Printf("Failed to set new quote of the day: %v", result.Error)
 		return
 	}
 
-	log.Println("daily quote updated successfully")
-
+	log.Println("Daily quote updated successfully")
 }
 
 func StartDailyQuoteCron() {
